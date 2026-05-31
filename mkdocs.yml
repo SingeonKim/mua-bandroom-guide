@@ -6,28 +6,46 @@ docs_dir: docs
 theme:
   name: material
   language: ko
+  icon:
+    logo: material/speaker
   palette:
-    - scheme: default
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
       toggle:
         icon: material/weather-night
         name: 다크 모드로
-    - scheme: slate
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
       toggle:
         icon: material/weather-sunny
         name: 라이트 모드로
   features:
     - navigation.top
     - navigation.instant
-    - search.highlight
+    - navigation.tracking
+    - navigation.footer
+    - toc.follow
     - content.code.copy
+    - content.tooltips
+    - search.suggest
+    - search.highlight
 
 markdown_extensions:
   - admonition
+  - attr_list
+  - md_in_html
   - tables
   - toc:
       permalink: true
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 plugins:
   - search
