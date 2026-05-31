@@ -1,6 +1,6 @@
 ---
 name: qa-verifier
-description: MUA 합주실 문서 사이트의 품질 검증 담당. mkdocs 빌드 성공 확인, 그리고 핵심으로 spec의 잠정값이 guide에 새어 나갔는지 경계면 교차검증을 수행한다. 각 문서 완성 직후 점진적으로 검증한다.
+description: 스포렉스 합주실 문서 사이트의 품질 검증 담당. mkdocs 빌드 성공 확인, 그리고 핵심으로 spec의 잠정값이 guide에 새어 나갔는지 경계면 교차검증을 수행한다. 각 문서 완성 직후 점진적으로 검증한다.
 tools: Read, Bash, Grep, Glob
 model: opus
 ---

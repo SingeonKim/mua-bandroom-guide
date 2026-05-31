@@ -1,11 +1,11 @@
 ---
 name: bandroom-docs-build
-description: MUA 합주실 PA 문서 사이트(MkDocs Material + GitHub Pages)를 구축·갱신·재실행하는 오케스트레이터. spec.md/guide.md/index.md 작성, mkdocs 설정·배포, 품질 검증을 에이전트 팀으로 조율한다. "합주실 문서 사이트 만들어/구축/배포", "spec·guide 갱신", "잠정값 확정 반영", "사이트 다시 빌드/업데이트", "문서 보완", "이전 결과 개선" 등 합주실 문서 관련 작업에 반드시 사용할 것. 단순 질문은 직접 응답 가능.
+description: 스포렉스 합주실 PA 문서 사이트(MkDocs Material + GitHub Pages)를 구축·갱신·재실행하는 오케스트레이터. spec.md/guide.md/index.md 작성, mkdocs 설정·배포, 품질 검증을 에이전트 팀으로 조율한다. "합주실 문서 사이트 만들어/구축/배포", "spec·guide 갱신", "잠정값 확정 반영", "사이트 다시 빌드/업데이트", "문서 보완", "이전 결과 개선" 등 합주실 문서 관련 작업에 반드시 사용할 것. 단순 질문은 직접 응답 가능.
 ---
 
 # bandroom-docs-build — 합주실 문서 사이트 오케스트레이터
 
-MUA 합주실 PA 세팅 문서를 MkDocs Material 사이트로 만들고, 값이 바뀔 때마다 spec ↔ guide를 동기화한다.
+스포렉스 합주실 PA 세팅 문서를 MkDocs Material 사이트로 만들고, 값이 바뀔 때마다 spec ↔ guide를 동기화한다.
 
 **실행 모드: 에이전트 팀 (생성-검증 결합 + 점진적 QA)**
 
