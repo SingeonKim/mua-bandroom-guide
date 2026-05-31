@@ -13,3 +13,6 @@ Thumbs.db
 
 # Claude Code 내부 캐시
 .claude/tsc-cache/
+
+# JetBrains IDE
+.idea/
