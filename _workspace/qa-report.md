@@ -1,79 +1,53 @@
-# QA 검증 리포트 — 스포렉스 합주실 문서 사이트
+# QA 검증 리포트 (docs-integrity-qa 정책 + 2026-05-31 예외 적용)
 
 - 검증일: 2026-05-31
 - 검증자: qa-verifier
-- 적용 정책: `docs-integrity-qa` 신정책 — 누출 기준 = "확정이냐 미검증 잠정이냐". 확정 게인/노브값(0/-10/+10/+21, 12시·10시)은 허용. spec의 미검증 잠정값·빈칸(`______`)만 금지.
-- 대상: docs/guide.md, docs/index.md, docs/spec.md, mkdocs.yml
-- 기준선: _workspace/spec-classification.md "금지(잠정·빈칸)" 목록
-- 빌드 수행: **예** (`mkdocs build --strict`, mkdocs 1.6.1 + mkdocs-material 설치 확인)
+- 빌드 수행: O (`mkdocs build --strict`, mkdocs 1.6.1 / mkdocs-material 설치됨, EXIT=0)
+- 기준선: `_workspace/spec-classification.md` 금지 목록
 
-## 종합 결과: 전 항목 PASS
-
-| 항목 | 결과 |
-|------|------|
-| 1. 누출 교차검증 (신정책) | PASS |
-| 2. strict 빌드 | PASS |
-| 3. 설계문서 비노출 | PASS |
-| 4. 명칭 일관성 (스포렉스 전환) | PASS |
-| 5. 링크/네비 정합성 | PASS |
-| 6. 연락처/씬 정보 반영 | PASS |
+## 종합: 전체 PASS (누출 0건 / 빌드 성공 / 요구사항 반영 완료)
 
 ---
 
-## 1. 누출 교차검증 — PASS (신정책 기준 누출 없음)
+## 1. 누출 교차검증 (최우선) — PASS
 
-`grep -nE '잠정|______' docs/guide.md docs/index.md` → 매치 0건.
-
-수치 스캔 `[-+]?[0-9]+\s*dB|[0-9]+시` 결과(guide.md)와 판정:
-- 12시 고정(베이스 마스터 L32), 12시 기준(키보드 L38), 0/-10/+10 dB 기타 케이스 게인표(L46-48), "12시 이상 금지"(L94) → 모두 **확정 운영값**. 신정책상 **허용**.
-- 클린·크런치 12시 / OD 10시(L46) → 확정 노브값. 허용.
-
-금지 잠정값 직접 대조(모두 guide/index 미등장):
-- 모니터 분배 "본인 -10 / 타 -15", "Bus 마스터 0~-10" → 없음
-- 메인 페이더 "악기 -15 / 보컬 -10" → 없음
-- 메인 본체 PRX ONE "Main Volume -10dB" → 없음 (index.md L21의 "PRX ONE ×2"는 장비 모델명일 뿐, 볼륨 수치 아님)
-- 리버브 B 구조 → 없음
-- 컴프/게이트/EQ 세부 파라미터 → 없음
-- 빈칸 `______` → 없음
-
-결론: 미검증 잠정값·빈칸 누출 **없음**. 1순위 리스크 통과.
+- `잠정`/`______` 패턴: guide.md, index.md 모두 매치 0건.
+- guide의 모든 dB 수치(L59 `0 dB`, L60 `-10 dB`, L61 `+10 dB`)는 기타 케이스별 PA 채널 게인 = 확정 운영값 → 정책상 허용.
+- guide L92/L96 `본인 -10 / 다른 -15`는 모니터 분배 send 값 = 사용자 승인 현재 운영값 → 허용(누출 검사 제외 항목).
+- 금지 항목 미등장 확인:
+  - 메인 페이더 악기 -15 / 보컬 -10: 없음.
+  - 메인 본체 PRX ONE Main Volume -10dB: 없음(index L21의 "JBL PRX ONE ×2"는 장비명 표기로 수치 아님).
+  - 리버브 B 구조: 없음.
+  - 모니터 Bus 마스터 페이더 권장 수치: 없음. guide L87~90은 "버스 페이더로 조절" 안내 + `!!! note "현장에서 채울 것"`(권장값 추후 기재)로, 실제 수치 노출 없음 → 정책상 허용(현장기재 안내 제외 규정).
 
 ## 2. strict 빌드 — PASS
 
-명령: `mkdocs build --strict --clean` → EXIT=0, "Documentation built in 1.46 seconds".
-- 깨진 내부 링크 / 없는 nav 페이지 / 없는 이미지 경고 없음.
-- guide.md 내 이미지 참조 없음 확인(누락 이미지로 인한 strict 실패 없음).
-- (참고) Material 팀의 MkDocs 2.0 경고 배너는 정보성 출력으로 빌드 성공과 무관.
+- `mkdocs build --strict` EXIT=0, "Documentation built in 1.35s". 깨진 링크/이미지/nav 누락 없음.
+- (참고) 출력의 빨간 경고는 Material 팀의 MkDocs 2.0 사전 예고 배너로 빌드 에러 아님. strict 통과.
+- superpowers 설계문서: mkdocs.yml `exclude_docs`로 제외 처리됨, site/ 산출물에 미노출 확인 → PASS.
 
-## 3. 설계문서 비노출 — PASS
+## 3. 이번 요구사항 반영 (guide.md) — PASS
 
-`find site -path '*superpowers*'` → 결과 없음(빈 출력).
-mkdocs.yml `exclude_docs: superpowers/` 정상 동작. (원본 docs/superpowers/ 2개 파일은 사이트에 미반영.)
-생성 HTML: site/index.html(홈), site/guide/index.html, site/spec/index.html.
+- "이 합주실 구성" 섹션 존재(L8~13, 드럼 제외 메인+모니터 구조 설명) — O
+- 베이스 "12시 근처"(L39) — O / "12시 고정" 옛 표현 잔존 0건 — O
+- 키보드 "12시 근처"(L45) — O
+- 기타: "기타 인풋 채널"(L49,53) + "send on fader"(L95,97) + "line out"(L60,66, 앰프 뒷면 케이블) + 원상복귀 안내(L66 "반드시 원상복귀") — O
+- 모니터 조절 4단계(L94~97) + "send on fader"(L95,97) — O
 
-## 4. 명칭 일관성 — PASS
+## 4. spec 변경 확인 (docs/spec.md) — PASS
 
-`grep -rn "MUA 합주실|무아 합주실|무아(MUA) 합주실" docs/guide.md docs/index.md docs/spec.md mkdocs.yml` → 매치 0건.
-- site_name/site_description, index.md 제목 모두 "스포렉스 합주실"로 전환됨.
-- 정상 잔존(허용): 씬 이름 `02 mua-default-scenes`(guide 다수), 작성 주체 "MUA 밴드"(index.md L25). 신정책상 정상이며 FAIL 아님.
+- "딥스위치 -10dBV"가 2-1 4CM 미세조정 칸에서 제거됨 확인:
+  - 4CM 게인 행(L108, L207)은 "-10~0dB(조절)"만, 딥스위치 문구 없음.
+- 딥스위치는 L167(기술주의 루프 설명: "페달이면 딥스위치 -10dBV")에만 잔존 → 정책상 정상 위치.
 
-## 5. 링크/네비 정합성 — PASS
+## 5. 명칭/링크 정합성 — PASS
 
-- index.md 링크: `[사용 가이드](guide.md)`(L7), `[스펙 문서](spec.md)`(L10) → 실제 파일 존재, strict 빌드 검증 통과.
-- mkdocs.yml nav 3개(index.md/guide.md/spec.md) 모두 docs/에 존재.
-
-## 6. 연락처/씬 정보 반영 — PASS
-
-guide.md 내:
-- "010-2909-5942" → L102 존재
-- "김신건" → L101 존재
-- "02 mua-default-scenes" → L4,5,15,18,20,83,97 다수 존재
-(index.md에도 김신건/010-2909-5942 반영됨 — L25.)
+- "MUA 합주실/무아 합주실" 잔존 0건(guide/index/spec). 씬명 `mua-default-scenes`, index L25 "MUA 밴드"는 정상 표기.
+- nav 3개 파일(index.md, guide.md, spec.md) 모두 존재.
+- index.md 링크: guide.md(L7), spec.md(L11) 실제 파일 가리킴 — 정상.
 
 ---
 
-## FAIL 항목
-없음.
+## FAIL 항목 / 권장 수정: 없음
 
-## 권장(비차단)
-- 없음. 전 항목 통과. 파일 수정·커밋 불필요.
+전 항목 통과. 추가 조치 불요.
