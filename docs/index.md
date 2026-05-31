@@ -32,8 +32,13 @@
 | 구분 | 장비 |
 |------|------|
 | 믹서(콘솔) | Behringer X32 Producer |
-| 모니터 스피커 | Yamaha DHR12M ×5 (각 자리 앞 바닥) |
 | 메인 스피커 | JBL PRX ONE ×2 (L/R) |
+| 모니터 스피커 | Yamaha DHR12M ×5 (각 자리 앞 바닥) |
+| 베이스 앰프 | Fender Rumble 500 |
+| 기타 앰프 | Marshall JVM 410H (기타1) / JVM 410C (기타2) |
+| 키보드 | Roland Fantom 07 (키보드1) / Roland RD-2000 (키보드2) |
+| 보컬 마이크 | Shure PGA57 (현재 1대 비치 — MIC2) |
+| 드럼 | 생음 (마이킹 없음) |
 
 ---
 
