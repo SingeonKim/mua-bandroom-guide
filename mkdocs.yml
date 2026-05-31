@@ -1,0 +1,42 @@
+site_name: MUA 합주실 PA 안내
+site_description: 무아(MUA) 합주실 PA·모니터 세팅 가이드
+site_url: https://SingeonKim.github.io/mua-bandroom-guide/
+docs_dir: docs
+
+theme:
+  name: material
+  language: ko
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: 다크 모드로
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: 라이트 모드로
+  features:
+    - navigation.top
+    - navigation.instant
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+
+plugins:
+  - search
+
+# 설계·plan 문서는 docs_dir 아래 있어도 사이트 빌드에서 제외
+exclude_docs: |
+  superpowers/
+
+nav:
+  - 홈: index.md
+  - 사용 가이드: guide.md
+  - 스펙 문서(관리자용): spec.md
