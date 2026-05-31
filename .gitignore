@@ -1,0 +1,12 @@
+# MkDocs 빌드 산출물
+site/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
