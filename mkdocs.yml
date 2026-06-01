@@ -1,6 +1,6 @@
 site_name: 스포렉스 합주실 PA 안내
 site_description: 스포렉스 합주실 PA·모니터 세팅 가이드
-site_url: https://SingeonKim.github.io/mua-bandroom-guide/
+site_url: https://SingeonKim.github.io/bandroom-guide/
 docs_dir: docs
 
 theme:

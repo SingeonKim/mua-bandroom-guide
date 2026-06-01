@@ -24,8 +24,8 @@ mkdocs serve
 
 ### 레포 최초 1회 설정
 
-1. GitHub에 public 레포 `mua-bandroom-guide` 생성
+1. GitHub에 public 레포 `bandroom-guide` 생성
 2. 코드 푸시
 3. 레포 **Settings → Pages → Build and deployment → Source = "GitHub Actions"** 선택
 
-배포 URL: `https://SingeonKim.github.io/mua-bandroom-guide/`
+배포 URL: `https://SingeonKim.github.io/bandroom-guide/`
